@@ -6,10 +6,10 @@ use \GithubHooks\Hooks\PullOriginHooks;
 
 include '../vendor/autoload.php';
 
-$plannify = new Repository('Plannify', 'plannify');
-$plannify->addHook(array('develop'), new PullOriginHooks('/var/www/git-auto/plannify'));
+$repository = new Repository('OwnerName', 'ProjectName');
+$repository->addHook(array('master'), new PullOriginHooks('/path/to/working/copy'));
 
 $server = new Server();
-$server->addRespitory('plannify', $plannify);
+$server->addRespitory('ProjectName', $repository);
 
 $server->resolve();
