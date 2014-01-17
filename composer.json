@@ -1,0 +1,22 @@
+{
+    "name": "pruno/github-hooks",
+    "description": "Utility to handle multiple Github web-hooks on the same platform",
+    "type": "library",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "git",
+        "github"
+    ],
+    "homepage": "https://github.com/pruno/github-hooks",
+    "autoload": {
+        "psr-0": {
+            "GithubHooks": "src/"
+        },
+        "classmap": [
+            "./"
+        ]
+    },
+    "require": {
+        "php": ">=5.4.0"
+    }
+}
