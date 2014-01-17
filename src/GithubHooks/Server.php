@@ -241,7 +241,7 @@ class Server
             'reason' => $reasonPhrase ? $reasonPhrase : $this->getReasonPhrase($statusCode)
         );
 
-        header("HTTP/1.1 ".$this->getReasonPhrase($statusCode));
+        header("HTTP/1.1 {$statusCode} ".$this->getReasonPhrase($statusCode));
         header("Content-Type: Application/Json");
         echo json_encode($payload);
 
