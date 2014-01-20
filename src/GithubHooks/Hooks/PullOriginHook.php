@@ -69,8 +69,9 @@ class PullOriginHooks implements HookInterface
             }
 
             $realKeyPath = realpath($this->pathToSshKey);
+            $realBinPath = realpath(__DIR__.'/../../../bin/git_ssh.sh');
 
-            $cmd .= "GIT_SSH='ssh -i {$realKeyPath}' ";
+            $cmd .= "PATH_TO_PRIVATE_KEY=".escapeshellarg($realKeyPath)." GIT_SSH=".escapeshellarg($realBinPath)." ";
         }
 
         $cmd .= "git pull origin {$branch}";
