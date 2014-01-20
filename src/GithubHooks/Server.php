@@ -104,21 +104,6 @@ class Server
      */
     protected $repositories = array();
 
-    public function __construct()
-    {
-        if (!$this->isValidOrigin($this->getOrigin())) {
-            $this->close(403);
-        }
-
-        if (!isset($_SERVER['REQUEST_METHOD']) || $_SERVER['REQUEST_METHOD'] != 'POST') {
-            $this->close(405);
-        }
-
-        if (!$this->getPayload()) {
-            $this->close(400);
-        }
-    }
-
     /**
      * @return string|null
      */
@@ -271,6 +256,18 @@ class Server
 
     public function resolve($closeOnFinish = true)
     {
+        if ($this->validateOrigin && !$this->isValidOrigin($this->getOrigin())) {
+            $this->close(403);
+        }
+
+        if (!isset($_SERVER['REQUEST_METHOD']) || $_SERVER['REQUEST_METHOD'] != 'POST') {
+            $this->close(405);
+        }
+
+        if (!$this->getPayload()) {
+            $this->close(400);
+        }
+
         if (!isset($this->payload->repository) || !isset($this->payload->repository->url)) {
             $this->close(400);
         }
