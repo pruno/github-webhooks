@@ -185,7 +185,7 @@ class Server
      * @param Repository $repository
      * @throws \RuntimeException
      */
-    public function addRespitory($id, Repository $repository)
+    public function addRepository($id, Repository $repository)
     {
         if ($this->getRepository($id)) {
             throw new \RuntimeException("Repository with id {$id} already exists");
