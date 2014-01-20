@@ -90,6 +90,11 @@ class Server
     protected $payload;
 
     /**
+     * @var bool
+     */
+    protected $validateOrigin = true;
+
+    /**
      * @var string
      */
     protected $origin;
@@ -160,6 +165,22 @@ class Server
         }
 
         return false;
+    }
+
+    /**
+     * @param bool $validateOrigin
+     */
+    public function setValidateOrigin($validateOrigin)
+    {
+        $this->validateOrigin = (bool) $validateOrigin;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getValidateOrigin()
+    {
+        return $this->validateOrigin;
     }
 
     /**
