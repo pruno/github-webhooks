@@ -47,11 +47,20 @@ class Repository
     }
 
     /**
-     * @param array $branches
+     * @param $branches
      * @param HookInterface $hook
+     * @throws \InvalidArgumentException
      */
-    public function addHook(array $branches, HookInterface $hook)
+    public function addHook($branches, HookInterface $hook)
     {
+        if (is_string($branches)) {
+            $branches = array($branches);
+        }
+
+        if (!is_array($branches)) {
+            throw \InvalidArgumentException("First argument supplied for addHook must be a string or an array of strings");
+        }
+
         foreach ($branches as $branch) {
             if (!isset($this->hooks[$branch])) {
                 $this->hooks[$branch] = array();
