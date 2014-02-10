@@ -1,0 +1,12 @@
+{
+  "require": {
+    "php": ">=5.3.0",
+    "pruno/github-hooks": ">=1.0.0"
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/pruno/github-hooks"
+    }
+  ]
+}
