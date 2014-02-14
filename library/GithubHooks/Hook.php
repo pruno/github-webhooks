@@ -9,7 +9,7 @@ namespace GithubHooks;
 class Hook
 {
     /**
-     * @var int
+     * @var string
      */
     protected $id;
 
@@ -24,13 +24,13 @@ class Hook
     protected $repository;
 
     /**
-     * @param int $id
+     * @param string $id
      * @param string $owner
      * @param string $repository
      */
     public function __construct($id, $owner, $repository)
     {
-        $this->id = (int) $id;
+        $this->id = (string) $id;
         $this->owner = (string) $owner;
         $this->repository = (string) $repository;
     }
