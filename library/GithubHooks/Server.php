@@ -201,7 +201,7 @@ class Server
     /**
      * @return null|string
      */
-    protected function getEvent()
+    public function getEvent()
     {
         if ($this->event === null) {
             if (isset($headers[self::GITHUB_EVENT_HEADER_NAME])) {
