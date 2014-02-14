@@ -3,10 +3,10 @@
 namespace GithubHooks;
 
 /**
- * Class WebHook
+ * Class Hook
  * @package GithubHooks
  */
-class WebHook
+class Hook
 {
     /**
      * @var int

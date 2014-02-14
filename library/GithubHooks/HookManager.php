@@ -142,12 +142,12 @@ class HookManager
     }
 
     /**
-     * @param WebHook $webhook
+     * @param Hook $webhook
      * @param string $event
      * @param HookEventListenerInterface $listener
      * @param int $priority
      */
-    public function attach(WebHook $webhook, $event, HookEventListenerInterface $listener, $priority = 1)
+    public function attach(Hook $webhook, $event, HookEventListenerInterface $listener, $priority = 1)
     {
         $closure = function(Event $e) use($webhook, $listener) {
 
@@ -174,7 +174,7 @@ class HookManager
             return;
         }
 
-        /* @var $webHook \GithubHooks\WebHook */
+        /* @var $webHook \GithubHooks\Hook */
         $webHook = $this->webHooks[$payload->getHookId()];
 
         $this->getEventManager()->trigger(new Event($payload->getEvent(), $webHook, array('payload' => $payload)));
