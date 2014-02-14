@@ -3,7 +3,7 @@ Github Hooks 2.0.0
 
 Utility to handle multiple Github web-hooks on the same platform.
 
-Uses multiple deploy key on the same host.
+Support multiple deploy key on the same host.
 
 Version: >=2.0.0: support github events.
 
@@ -23,4 +23,3 @@ License
 ---------
 
 This software is released under the New-BSD License.
-A copy can be found in LICENSE.md
