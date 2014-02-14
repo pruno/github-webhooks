@@ -19,6 +19,16 @@ class Pull implements HookEventListenerInterface
     /**
      * @var string
      */
+    protected $remote;
+
+    /**
+     * @var string
+     */
+    protected $branch;
+
+    /**
+     * @var string
+     */
     protected $pathToSshKey;
 
     /**
@@ -31,6 +41,38 @@ class Pull implements HookEventListenerInterface
     {
         $this->path = $path;
         $this->pathToSshKey = $pathToSshKey;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBranch()
+    {
+        return $this->branch;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPathToSshKey()
+    {
+        return $this->pathToSshKey;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRemote()
+    {
+        return $this->remote;
     }
 
     /**
@@ -61,9 +103,6 @@ class Pull implements HookEventListenerInterface
             throw new \RuntimeException("Path {$this->path} is not writable");
         }
 
-        $aref = explode('/', $payload->ref);
-        $branch = $aref[count($aref) - 1];
-
         $cmd = '';
 
         if ($this->pathToSshKey) {
@@ -77,7 +116,7 @@ class Pull implements HookEventListenerInterface
             $cmd .= "PATH_TO_PRIVATE_KEY=".escapeshellarg($realKeyPath)." GIT_SSH=".escapeshellarg($realBinPath)." ";
         }
 
-        $cmd .= "git pull origin {$branch}";
+        $cmd .= "git pull {$this->remote} {$this->branch}";
 
         $cwd = getcwd();
         chdir($this->path);
