@@ -1,5 +1,5 @@
 {
-    "name": "pruno/github-hooks",
+    "name": "pruno/github-webhooks",
     "description": "Utility to handle multiple Github web-hooks on the same platform",
     "type": "library",
     "license": "BSD-3-Clause",

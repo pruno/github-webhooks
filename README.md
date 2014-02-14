@@ -1,4 +1,4 @@
-Github Hooks 2.0.0
+Github WebHooks 2.0.0
 ============
 
 Utility to handle multiple Github web-hooks on the same platform.
