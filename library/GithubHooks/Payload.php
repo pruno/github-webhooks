@@ -21,7 +21,7 @@ class Payload extends Message
      */
     public function __construct($data, $event)
     {
-        $this->setContent(json_decode($data));
+        $this->setContent(json_decode($data, true));
         $this->setMetadata('event', $event);
     }
 
