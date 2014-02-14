@@ -125,6 +125,11 @@ class HookManager
     protected $eventManager;
 
     /**
+     * @var bool
+     */
+    protected $suppressListenersExceptions = true;
+
+    /**
      * @var array
      */
     protected $webHooks = array();
@@ -142,6 +147,22 @@ class HookManager
     }
 
     /**
+     * @param bool $bool
+     */
+    public function setSuppressListenersExceptions($bool)
+    {
+        $this->suppressListenersExceptions = (bool) $bool;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getSuppressListenersExceptions()
+    {
+        return $this->suppressListenersExceptions;
+    }
+
+    /**
      * @param Hook $webhook
      * @param string $event
      * @param HookEventListenerInterface $listener
@@ -149,13 +170,21 @@ class HookManager
      */
     public function attach(Hook $webhook, $event, HookEventListenerInterface $listener, $priority = 1)
     {
-        $closure = function(Event $e) use($webhook, $listener) {
+        $hookManager = $this;
 
-            if ($e->getTarget() !== $webhook) {
+        $closure = function(Event $event) use($webhook, $listener, $hookManager) {
+
+            if ($event->getTarget() !== $webhook) {
                 return;
             }
 
-            $listener($e->getParam('payload'));
+            try {
+                $listener($event->getParam('payload'));
+            } catch (\Exception $e) {
+                if (!$hookManager->getSuppressListenersExceptions()) {
+                    throw new \RuntimeException("HookEventListener failure", null, $e);
+                }
+            }
         };
 
         if (!array_key_exists($webhook->getId(), $this->webHooks)) {
