@@ -24,13 +24,13 @@ class Payload
     protected $hookId;
 
     /**
-     * @param mixed $data
+     * @param array $content
      * @param string $event
      * @param string $hookId
      */
-    public function __construct($data, $event, $hookId)
+    public function __construct(array $content, $event, $hookId)
     {
-        $this->content = json_decode($data, true);
+        $this->content = $content;
         $this->event = $event;
         $this->hookId = $hookId;
     }

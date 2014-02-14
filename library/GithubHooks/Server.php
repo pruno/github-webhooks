@@ -234,13 +234,12 @@ class Server
      */
     public function getPayload()
     {
-        if (
-            $this->payload === null
-            && isset($_POST['payload'])
-            && $this->getEvent()
-            && $this->getHookId()
-        ) {
-            $this->payload = new Payload($_POST['payload'], $this->getEvent(), $this->getHookId());
+        if ($this->payload === null && $this->getEvent() && $this->getHookId() && isset($_SERVER['CONTENT_TYPE'])) {
+            if ($_SERVER['CONTENT_TYPE'] == 'application/x-www-form-urlencoded' && isset($_POST['payload'])) {
+                $this->payload = new Payload(json_decode($_POST['payload'], false), $this->getEvent(), $this->getHookId());
+            } elseif ($_SERVER['CONTENT_TYPE'] == 'application/json' && ($data = file_get_contents('php://input'))) {
+                $this->payload = new Payload(json_decode($_POST['payload'], false), $this->getEvent(), $this->getHookId());
+            }
         }
 
         return $this->payload;
@@ -285,7 +284,7 @@ class Server
 
         $payload = $this->getPayload();
 
-        if (!$this->getHookId() || !$payload || !$payload->getHookId() || !$payload->getEvent()) {
+        if (!$this->getHookId() || !$payload || !$payload->getEvent()) {
             $this->close(400);
         }
 
