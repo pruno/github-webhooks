@@ -6,7 +6,7 @@ use GithubHooks\Hooks\Pull;
 
 include '../vendor/autoload.php';
 
-$webhook = new Hook(1111111, 'pruno', 'github-hooks');
+$webhook = new Hook('custom_id', 'pruno', 'github-hooks');
 
 $server = new Server();
 $server->getHookManager()->setSuppressListenersExceptions(false);
