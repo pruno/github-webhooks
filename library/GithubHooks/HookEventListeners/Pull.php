@@ -40,6 +40,8 @@ class Pull implements HookEventListenerInterface
     public function __construct($path, $remote = 'origin', $branch = 'master', $pathToSshKey = null)
     {
         $this->path = $path;
+        $this->remote = $remote;
+        $this->branch = $branch;
         $this->pathToSshKey = $pathToSshKey;
     }
 
