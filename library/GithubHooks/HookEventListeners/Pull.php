@@ -115,7 +115,7 @@ class Pull implements HookEventListenerInterface
             $realKeyPath = realpath($this->pathToSshKey);
             $realBinPath = realpath(__DIR__.'/../../../bin/git-ssh.sh');
 
-            $cmd .= "GIT-KEY=".escapeshellarg($realKeyPath)." GIT_SSH=".escapeshellarg($realBinPath)." ";
+            $cmd .= "GIT_KEY=".escapeshellarg($realKeyPath)." GIT_SSH=".escapeshellarg($realBinPath)." ";
         }
 
         $cmd .= "git pull {$this->remote} {$this->branch}";
