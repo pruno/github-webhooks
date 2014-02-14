@@ -204,8 +204,8 @@ class Server
     public function getEvent()
     {
         if ($this->event === null) {
-            if (isset($headers[self::GITHUB_EVENT_HEADER_NAME])) {
-                $this->event = $headers[self::GITHUB_EVENT_HEADER_NAME];
+            if (isset($_SERVER[self::GITHUB_EVENT_HEADER_NAME])) {
+                $this->event = $_SERVER[self::GITHUB_EVENT_HEADER_NAME];
             }
         }
 
