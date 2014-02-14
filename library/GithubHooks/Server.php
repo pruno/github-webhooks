@@ -9,6 +9,11 @@ namespace GithubHooks;
 class Server
 {
     /**
+     * @var string
+     */
+    const GITHUB_EVENT_HEADER_NAME = 'X-GitHub-Event';
+
+    /**
      * @var array Recommended Reason Phrases
      */
     protected $recommendedReasonPhrases = array(
@@ -85,6 +90,11 @@ class Server
     );
 
     /**
+     * @var HookManager
+     */
+    protected $hookManager;
+
+    /**
      * @var \StdClass
      */
     protected $payload;
@@ -100,9 +110,29 @@ class Server
     protected $origin;
 
     /**
-     * @var array
+     * @var string
      */
-    protected $repositories = array();
+    protected $event;
+
+    /**
+     * @param HookManager $hookManager
+     */
+    public function setHookManager(HookManager $hookManager)
+    {
+        $this->hookManager = $hookManager;
+    }
+
+    /**
+     * @return HookManager
+     */
+    public function getHookManager()
+    {
+        if ($this->hookManager === null) {
+            $this->hookManager = new HookManager();
+        }
+
+        return $this->hookManager;
+    }
 
     /**
      * @return string|null
@@ -169,62 +199,30 @@ class Server
     }
 
     /**
-     * @return mixed|null
+     * @return null|string
      */
-    public function getPayload()
+    protected function getEvent()
     {
-        if ($this->payload === null && isset($_POST['payload'])) {
-            $this->payload = json_decode($_POST['payload']);
-        }
-
-        return $this->payload;
-    }
-
-    /**
-     * @param $id
-     * @param Repository $repository
-     * @throws \RuntimeException
-     */
-    public function addRepository($id, Repository $repository)
-    {
-        if ($this->getRepository($id)) {
-            throw new \RuntimeException("Repository with id {$id} already exists");
-        }
-
-        $this->repositories[$id] = $repository;
-    }
-
-    /**
-     * @param $id
-     * @return Repository|null
-     */
-    public function getRepository($id)
-    {
-        return isset($this->repositories[$id]) ? $this->repositories[$id] : null;
-    }
-
-    /**
-     * @param $url
-     * @return Repository|null
-     */
-    public function getRepositoryByUrl($url)
-    {
-        /* @var $repository Repository */
-        foreach ($this->repositories as $repository) {
-            if ($repository->getUrl() == $url) {
-                return $repository;
+        if ($this->event === null) {
+            $headers = getallheaders();
+            if (isset($headers[self::GITHUB_EVENT_HEADER_NAME])) {
+                $this->event = $headers[self::GITHUB_EVENT_HEADER_NAME];
             }
         }
 
-        return null;
+        return $this->event;
     }
 
     /**
-     * @return array
+     * @return Payload|null
      */
-    public function getRepositories()
+    public function getPayload()
     {
-        return $this->repositories;
+        if ($this->payload === null && isset($_POST['payload']) && $this->getEvent()) {
+            $this->payload = new Payload($_POST['payload'], $this->getEvent());
+        }
+
+        return $this->payload;
     }
 
     /**
@@ -264,20 +262,13 @@ class Server
             $this->close(405);
         }
 
-        if (!$this->getPayload()) {
+        $payload = $this->getPayload();
+
+        if (!$payload || !$payload->getHookId() || !$payload->getEvent()) {
             $this->close(400);
         }
 
-        if (!isset($this->payload->repository) || !isset($this->payload->repository->url)) {
-            $this->close(400);
-        }
-
-        $repository = $this->getRepositoryByUrl($this->payload->repository->url);
-        if (!$repository) {
-            $this->close(404, 'Unknown repository');
-        }
-
-        $repository->resolveHooks($this->payload);
+        $this->getHookManager()->processPayload($payload);
 
         if ($closeOnFinish) {
             $this->close(200);

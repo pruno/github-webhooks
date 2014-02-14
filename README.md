@@ -1,9 +1,11 @@
-Github Hooks
+Github Hooks 2.0.0
 ============
 
 Utility to handle multiple Github web-hooks on the same platform.
 
 Uses multiple deploy key on the same host.
+
+Version: >=2.0.0: support github events.
 
 Sample
 ---------
