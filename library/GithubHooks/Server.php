@@ -236,9 +236,9 @@ class Server
     {
         if ($this->payload === null && $this->getEvent() && $this->getHookId() && isset($_SERVER['CONTENT_TYPE'])) {
             if ($_SERVER['CONTENT_TYPE'] == 'application/x-www-form-urlencoded' && isset($_POST['payload'])) {
-                $this->payload = new Payload(json_decode($_POST['payload'], false), $this->getEvent(), $this->getHookId());
+                $this->payload = new Payload(json_decode($_POST['payload'], true), $this->getEvent(), $this->getHookId());
             } elseif ($_SERVER['CONTENT_TYPE'] == 'application/json' && ($data = file_get_contents('php://input'))) {
-                $this->payload = new Payload(json_decode($data, false), $this->getEvent(), $this->getHookId());
+                $this->payload = new Payload(json_decode($data, true), $this->getEvent(), $this->getHookId());
             }
         }
 
