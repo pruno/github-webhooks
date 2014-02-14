@@ -21,9 +21,8 @@ class Payload extends Message
      */
     public function __construct($data, $event)
     {
-        $this->setContent($data); //FIXME need to be parsed
+        $this->setContent(json_decode($data));
         $this->setMetadata('event', $event);
-        $this->setMetadata('version', 'FIXME');
     }
 
     /**
@@ -40,13 +39,5 @@ class Payload extends Message
     public function getEvent()
     {
         return $this->getMetadata('event');
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getVersion()
-    {
-        return $this->getMetadata('version');
     }
 }
