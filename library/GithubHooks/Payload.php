@@ -2,13 +2,11 @@
 
 namespace GithubHooks;
 
-use Zend\Stdlib\Message;
-
 /**
  * Class Payload
  * @package GithubHooks
  */
-class Payload extends Message
+class Payload
 {
     /**
      * @var array
@@ -16,28 +14,48 @@ class Payload extends Message
     protected $content;
 
     /**
+     * @var string
+     */
+    protected $event;
+
+    /**
+     * @var string
+     */
+    protected $hookId;
+
+    /**
      * @param mixed $data
      * @param string $event
+     * @param string $hookId
      */
-    public function __construct($data, $event)
+    public function __construct($data, $event, $hookId)
     {
-        $this->setContent(json_decode($data, true));
-        $this->setMetadata('event', $event);
+        $this->content = json_decode($data, true);
+        $this->event = $event;
+        $this->hookId = $hookId;
     }
 
     /**
-     * @return int
+     * @return array
      */
-    public function getHookId()
+    public function getContent()
     {
-        return (int) $this->content['hook_id'];
+        return $this->content;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getEvent()
     {
-        return $this->getMetadata('event');
+        return $this->event;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHookId()
+    {
+        return $this->hookId;
     }
 }

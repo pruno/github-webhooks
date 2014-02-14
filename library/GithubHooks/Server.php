@@ -115,6 +115,11 @@ class Server
     protected $event;
 
     /**
+     * @var string
+     */
+    protected $hookId;
+
+    /**
      * @param HookManager $hookManager
      */
     public function setHookManager(HookManager $hookManager)
@@ -213,12 +218,29 @@ class Server
     }
 
     /**
+     * @return null|string
+     */
+    public function getHookId()
+    {
+        if ($this->hookId === null && isset($_SERVER['REQUEST_URI']) && strlen($_SERVER['REQUEST_URI']) > 1) {
+            $this->hookId = substr($_SERVER['REQUEST_URI'], 1);
+        }
+
+        return $this->hookId;
+    }
+
+    /**
      * @return Payload|null
      */
     public function getPayload()
     {
-        if ($this->payload === null && isset($_POST['payload']) && $this->getEvent()) {
-            $this->payload = new Payload($_POST['payload'], $this->getEvent());
+        if (
+            $this->payload === null
+            && isset($_POST['payload'])
+            && $this->getEvent()
+            && $this->getHookId()
+        ) {
+            $this->payload = new Payload($_POST['payload'], $this->getEvent(), $this->getHookId());
         }
 
         return $this->payload;
@@ -263,7 +285,7 @@ class Server
 
         $payload = $this->getPayload();
 
-        if (!$payload || !$payload->getHookId() || !$payload->getEvent()) {
+        if (!$this->getHookId() || !$payload || !$payload->getHookId() || !$payload->getEvent()) {
             $this->close(400);
         }
 
