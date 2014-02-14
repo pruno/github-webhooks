@@ -1,7 +1,7 @@
 {
   "require": {
-    "php": ">=5.3.0",
-    "pruno/github-hooks": ">=1.0.0"
+    "php": ">=5.3.3",
+    "pruno/github-hooks": ">=2.0.0"
   },
   "repositories": [
     {

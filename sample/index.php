@@ -6,17 +6,9 @@ use GithubHooks\Hooks\Pull;
 
 include '../vendor/autoload.php';
 
-//
-//
-//$repository = new Repository('OwnerName', 'ProjectName');
-//$repository->addHook(array('master', 'develop'), new PullOriginHooks('/path/to/working/copy'));
-//
-//$privateRepository = new Repository('OwnerName', 'ProjectName2');
-//$privateRepository->addHook('develop', new PullOriginHooks('/path/to/working/copy2', '/path/to/deploy/key'));
-
-$webhook = new Hook(1111111, 'pruno', 'github-hooks-test');
+$webhook = new Hook(1111111, 'pruno', 'github-hooks');
 
 $server = new Server();
-$server->getHookManager()->attach($webhook, HookManager::EVENT_PING, new Pull());
+$server->getHookManager()->attach($webhook, HookManager::EVENT_PING, new Pull('/path/to/clone'));
 
 $server->resolve();
