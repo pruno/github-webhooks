@@ -11,7 +11,7 @@ class Server
     /**
      * @var string
      */
-    const GITHUB_EVENT_HEADER_NAME = 'X-GitHub-Event';
+    const GITHUB_EVENT_HEADER_NAME = 'HTTP_X_GITHUB_EVENT';
 
     /**
      * @var array Recommended Reason Phrases
@@ -204,7 +204,6 @@ class Server
     protected function getEvent()
     {
         if ($this->event === null) {
-            $headers = getallheaders();
             if (isset($headers[self::GITHUB_EVENT_HEADER_NAME])) {
                 $this->event = $headers[self::GITHUB_EVENT_HEADER_NAME];
             }

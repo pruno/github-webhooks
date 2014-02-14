@@ -14,7 +14,7 @@ include '../vendor/autoload.php';
 //$privateRepository = new Repository('OwnerName', 'ProjectName2');
 //$privateRepository->addHook('develop', new PullOriginHooks('/path/to/working/copy2', '/path/to/deploy/key'));
 
-$webhook = new WebHook(1812502, 'pruno', 'github-hooks-test');
+$webhook = new WebHook(1111111, 'pruno', 'github-hooks-test');
 
 $server = new Server();
 $server->getHookManager()->attach($webhook, HookManager::EVENT_PING, new Pull());
