@@ -132,7 +132,7 @@ class HookManager
     /**
      * @var array
      */
-    protected $webHooks = array();
+    protected $hooks = array();
 
     /**
      * @return EventManager
@@ -163,18 +163,18 @@ class HookManager
     }
 
     /**
-     * @param Hook $webhook
+     * @param Hook $hook
      * @param string $event
      * @param HookEventListenerInterface $listener
      * @param int $priority
      */
-    public function attach(Hook $webhook, $event, HookEventListenerInterface $listener, $priority = 1)
+    public function attach(Hook $hook, $event, HookEventListenerInterface $listener, $priority = 1)
     {
         $hookManager = $this;
 
-        $closure = function(Event $event) use($webhook, $listener, $hookManager) {
+        $closure = function(Event $event) use($hook, $listener, $hookManager) {
 
-            if ($event->getTarget() !== $webhook) {
+            if ($event->getTarget() !== $hook) {
                 return;
             }
 
@@ -187,11 +187,45 @@ class HookManager
             }
         };
 
-        if (!array_key_exists($webhook->getId(), $this->webHooks)) {
-            $this->webHooks[$webhook->getId()] = $webhook;
+        if (!$this->hasHook($hook->getId())) {
+            $this->addHook($hook);
         }
 
         $this->getEventManager()->attach($event, $closure, $priority);
+    }
+
+    /**
+     * @param Hook $hook
+     * @return $this
+     * @throws \Exception
+     */
+    public function addHook(Hook $hook)
+    {
+        if ($this->hasHook($hook->getId())) {
+            throw new \Exception("An hook with id '".$hook->getId()."' already exists.");
+        }
+
+        $this->hooks[$hook->getId()] = $hook;
+
+        return $this;
+    }
+
+    /**
+     * @param $hookId
+     * @return bool
+     */
+    public function hasHook($hookId)
+    {
+        return array_key_exists($hookId, $this->hooks);
+    }
+
+    /**
+     * @param $hookId
+     * @return Hook|null
+     */
+    public function getHook($hookId)
+    {
+        return $this->hasHook($hookId) ? $this->hooks[$hookId] : null;
     }
 
     /**
@@ -199,13 +233,10 @@ class HookManager
      */
     public function processPayload(Payload $payload)
     {
-        if (!array_key_exists($payload->getHookId(), $this->webHooks)) {
+        if (!$hook = $this->getHook($payload->getHookId())) {
             return;
         }
 
-        /* @var $webHook \GithubHooks\Hook */
-        $webHook = $this->webHooks[$payload->getHookId()];
-
-        $this->getEventManager()->trigger(new Event($payload->getEvent(), $webHook, array('payload' => $payload)));
+        $this->getEventManager()->trigger(new Event($payload->getEvent(), $hook, array('payload' => $payload)));
     }
 }
