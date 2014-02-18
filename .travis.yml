@@ -12,7 +12,7 @@ before_install:
 install:
 
 script:
- - vendor/bin/phpunit -v -c tests/
+ - vendor/bin/phpunit -v -c test/
 
 notifications:
   email: false
