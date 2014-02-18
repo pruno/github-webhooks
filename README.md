@@ -1,4 +1,4 @@
-Github WebHooks 2.0.0 [![Build Status](https://travis-ci.org/pruno/github-webhooks.png?branch=master)](https://travis-ci.org/pruno/mongo-vc)&nbsp;[![Latest Stable Version](https://poser.pugx.org/pruno/github-webhooks/v/stable.png)](https://packagist.org/packages/ripaclub/sphinxsearch)
+Github WebHooks 2.0.0 [![Build Status](https://travis-ci.org/pruno/github-webhooks.png?branch=master)](https://travis-ci.org/pruno/github-webhooks)&nbsp;[![Latest Stable Version](https://poser.pugx.org/pruno/github-webhooks/v/stable.png)](https://packagist.org/packages/ripaclub/sphinxsearch)
 ===
 
 Github Webhooks Library (with events support).
