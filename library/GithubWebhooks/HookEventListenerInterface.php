@@ -1,10 +1,10 @@
 <?php
 
-namespace GithubHooks;
+namespace GithubWebhooks;
 
 /**
  * Interface HookEventListenerInterface
- * @package GithubHooks
+ * @package GithubWebhooks
  */
 interface HookEventListenerInterface
 {

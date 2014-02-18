@@ -1,8 +1,8 @@
 <?php
 
-namespace GithubHooks;
+namespace GithubWebhooks;
 
-use GithubHooks\Hooks\Pull;
+use GithubWebhooks\Hooks\Pull;
 
 include '../vendor/autoload.php';
 

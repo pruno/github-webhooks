@@ -1,13 +1,13 @@
 <?php
 
-namespace GithubHooks;
+namespace GithubWebhooks;
 
 use Zend\EventManager\Event;
 use Zend\EventManager\EventManager;
 
 /**
  * Class HookManager
- * @package GithubHooks
+ * @package GithubWebhooks
  */
 class HookManager
 {

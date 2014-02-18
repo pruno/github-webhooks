@@ -1,10 +1,10 @@
 <?php
 
-namespace GithubHooks;
+namespace GithubWebhooks;
 
 /**
  * Class Server
- * @package GithubHooks
+ * @package GithubWebhooks
  */
 class Server
 {

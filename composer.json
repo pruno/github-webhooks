@@ -11,7 +11,8 @@
     "homepage": "https://github.com/pruno/github-hooks",
     "autoload": {
         "psr-0": {
-            "GithubHooks": "library/"
+            "GithubWebhooks": "library/",
+            "GithubWebhooksTests": "tests/"
         },
         "classmap": [
             "./"
@@ -20,5 +21,8 @@
     "require": {
         "php": ">=5.3.3",
         "zendframework/zend-eventmanager": "2.2.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
     }
 }
