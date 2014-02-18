@@ -142,7 +142,7 @@ class Server
     /**
      * @return string|null
      */
-    protected function getOrigin()
+    public function getOrigin()
     {
         if ($this->origin === null) {
             if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && filter_var($_SERVER['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP)) {

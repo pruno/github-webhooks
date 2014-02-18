@@ -14,6 +14,16 @@ class Pull implements HookEventListenerInterface
     /**
      * @var string
      */
+    const DEFAULT_REMOTE = 'origin';
+
+    /**
+     * @var string
+     */
+    const DEFAULT_BRANCH = 'master';
+
+    /**
+     * @var string
+     */
     protected $path;
 
     /**
@@ -37,11 +47,11 @@ class Pull implements HookEventListenerInterface
      * @param string $branch
      * @param string $pathToSshKey Path to private SSH key
      */
-    public function __construct($path, $remote = 'origin', $branch = 'master', $pathToSshKey = null)
+    public function __construct($path, $remote = null, $branch = null, $pathToSshKey = null)
     {
         $this->path = $path;
-        $this->remote = $remote;
-        $this->branch = $branch;
+        $this->remote = $remote !== null ? $remote : self::DEFAULT_REMOTE;
+        $this->branch = $branch !== null ? $branch : self::DEFAULT_BRANCH;
         $this->pathToSshKey = $pathToSshKey;
     }
 
@@ -118,11 +128,17 @@ class Pull implements HookEventListenerInterface
             $cmd .= "GIT_KEY=".escapeshellarg($realKeyPath)." GIT_SSH=".escapeshellarg($realBinPath)." ";
         }
 
-        $cmd .= "git pull {$this->remote} {$this->branch}";
+        $cmd .= "git pull {$this->remote} {$this->branch} 2> /dev/null";
 
         $cwd = getcwd();
         chdir($this->path);
-        exec($cmd);
+        $output = null;
+        $exitCode = 0;
+        exec($cmd, $output, $exitCode);
         chdir($cwd);
+
+        if ($exitCode) {
+            throw new \RuntimeException("git pull exit with code {$exitCode}.");
+        }
     }
 }

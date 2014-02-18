@@ -147,6 +147,14 @@ class HookManager
     }
 
     /**
+     * @param EventManager $eventManager
+     */
+    public function setEventManager(EventManager $eventManager)
+    {
+        $this->eventManager = $eventManager;
+    }
+
+    /**
      * @param bool $bool
      */
     public function setSuppressListenersExceptions($bool)
@@ -226,6 +234,16 @@ class HookManager
     public function getHook($hookId)
     {
         return $this->hasHook($hookId) ? $this->hooks[$hookId] : null;
+    }
+
+    /**
+     * @param Hook $hook
+     */
+    public function removeHook(Hook $hook)
+    {
+        if ($this->hasHook($hook->getId())) {
+            unset($this->hooks[$hook->getId()]);
+        }
     }
 
     /**
