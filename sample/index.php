@@ -2,14 +2,15 @@
 
 namespace GithubWebhooks;
 
-use GithubWebhooks\Hooks\Pull;
+use GithubWebhooks\HookEventListener\Pull;
 
 include '../vendor/autoload.php';
 
-$webhook = new Hook('custom_id', 'pruno', 'github-hooks');
+$webhook = new Hook('custom_id', 'pruno', 'github-webhooks');
 
 $server = new Server();
 $server->getHookManager()->setSuppressListenersExceptions(false);
-$server->getHookManager()->attach($webhook, HookManager::EVENT_PING, new Pull('/path/to/clone'));
+// Replace the 4th argument with the path to your deploy-key (if it's not your default ssh-key)
+$server->getHookManager()->attach($webhook, HookManager::EVENT_PUSH, new Pull('/path/to/working/copy', 'orign', 'master', null));
 
 $server->resolve();
