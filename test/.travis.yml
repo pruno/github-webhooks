@@ -1,0 +1,19 @@
+language: php
+
+php:
+  - 5.3.3
+  - 5.4
+  - 5.5
+
+before_install:
+  - cp test/testConfig.php.travis test/testConfig.php
+
+install:
+  - composer self-update && composer --version
+  - composer install --dev --prefer-source
+
+script:
+ - vendor/bin/phpunit -v -c tests/
+
+notifications:
+  email: false

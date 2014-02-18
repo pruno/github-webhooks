@@ -1,5 +1,10 @@
 <?php
 
 return array(
-
+    'listeners' => array(
+        'Pull' => array(
+            'skip_invoke_test' => false,
+            'path' => '/tmp/',
+        ),
+    ),
 );
