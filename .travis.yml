@@ -7,7 +7,10 @@ php:
 
 before_install:
   - cp test/testConfig.php.travis test/testConfig.php
-  - composer install
+
+install:
+  - composer self-update && composer --version
+  - composer install --dev --prefer-source
 
 install:
 
