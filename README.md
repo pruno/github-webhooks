@@ -1,4 +1,4 @@
-Github WebHooks 2.0.0 [![Build Status](https://travis-ci.org/pruno/github-webhooks.png?branch=master)](https://travis-ci.org/pruno/mongo-vc)
+Github WebHooks 2.0.0 [![Build Status](https://travis-ci.org/pruno/github-webhooks.png?branch=master)](https://travis-ci.org/pruno/mongo-vc)&nbsp;[![Latest Stable Version](https://poser.pugx.org/pruno/github-webhooks/v/stable.png)](https://packagist.org/packages/ripaclub/sphinxsearch)
 ===
 
 Github Webhooks Library (with events support).
@@ -9,8 +9,13 @@ Introduction
 This library aims to provide:
 
  - A simple and embeddable event-based library
+ 
  - A handy stand-alone server class
- - An event listener to perform `git pull` (Support multiple deploy key) (_NOTE_: Linux only)
+ 
+ - An event listener to perform `git pull`
+     
+     - Support multiple deploy key
+     - _NOTE_: Linux only
 
 Requirements
 ---
