@@ -1,11 +1,7 @@
-Github WebHooks 2.0.0
+Github WebHooks 2.0.0 [![Build Status](https://travis-ci.org/pruno/github-webhooks.png?branch=master)](https://travis-ci.org/pruno/mongo-vc)
 ===
 
 Github Webhooks Library. (Events support since 2.0.0)
-
-Master: [![Build Status](https://travis-ci.org/pruno/github-webhooks.png?branch=master)](https://travis-ci.org/pruno/mongo-vc)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Develop: [![Build Status](https://travis-ci.org/pruno/github-webhooks.png?branch=develop)](https://travis-ci.org/pruno/mongo-vc)
 
 Introduction
 ---
