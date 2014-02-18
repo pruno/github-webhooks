@@ -3,7 +3,7 @@
 namespace GithubWebhooksTest;
 
 use GithubWebhooks\HookManager;
-use GithubWebhooks\Hooks\Pull;
+use GithubWebhooks\HookEventListener\Pull;
 use GithubWebhooks\Payload;
 use GithubWebhooksTest\HookEventListenerTest\AbstractHookEventListenerTest;
 
@@ -11,7 +11,7 @@ use GithubWebhooksTest\HookEventListenerTest\AbstractHookEventListenerTest;
  * Class PullTest
  * @package GithubWebhooksTest
  *
- * @property \GithubWebhooks\Hooks\Pull $listener
+ * @property \GithubWebhooks\HookEventListener\Pull $listener
  */
 class PullTest extends AbstractHookEventListenerTest
 {

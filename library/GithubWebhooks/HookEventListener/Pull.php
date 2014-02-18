@@ -1,13 +1,13 @@
 <?php
 
-namespace GithubWebhooks\Hooks;
+namespace GithubWebhooks\HookEventListener;
 
 use GithubWebhooks\HookEventListenerInterface;
 use GithubWebhooks\Payload;
 
 /**
  * Class PullOriginHooks
- * @package GithubWebhooks\Hooks
+ * @package GithubWebhooks\HookEventListener
  */
 class Pull implements HookEventListenerInterface
 {
