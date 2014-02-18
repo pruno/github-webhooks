@@ -1,16 +1,16 @@
 Github WebHooks 2.0.0 [![Build Status](https://travis-ci.org/pruno/github-webhooks.png?branch=master)](https://travis-ci.org/pruno/mongo-vc)
 ===
 
-Github Webhooks Library. (Events support since 2.0.0)
+Github Webhooks Library (with events support).
 
 Introduction
 ---
 
-This Library aims to provide:
+This library aims to provide:
 
  - A simple and embeddable event-based library
  - A handy stand-alone server class
- - An event listener to perform git pull (Support multiple deploy key) (Linux only)
+ - An event listener to perform `git pull` (Support multiple deploy key) (_NOTE_: Linux only)
 
 Requirements
 ---
@@ -58,7 +58,7 @@ Quick implementation (Pull on Push event)
  
  2 - Run `composer install`.
  
- 3 - Copy `sample/index.php` to your public directory (Change line 7 if necessary).
+ 3 - Copy `sample/index.php` to your public directory.
  
  4 - Edir `sample/index.php` with:  
  
